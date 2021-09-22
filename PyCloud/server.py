@@ -6,3 +6,4 @@ class server:
         s.bind((ip, port))
         s.listen(5)
         self.conn, addr = s.accept()
+app = server(ip="192.168.1.2",port=52000)
