@@ -134,5 +134,5 @@ class client(QMainWindow):
         self.upload()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = client(ip="192.168.1.2",port=52000)
+    window = client(ip="127.0.0.1",port=52000)
     sys.exit(app.exec_())

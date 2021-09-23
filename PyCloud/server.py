@@ -62,4 +62,4 @@ class server:
         with open(self.file, "wb+") as w:
             w.write(jsonString)
 
-app = server(ip="192.168.1.2",port=52000)
+app = server(ip="127.0.0.1",port=52000)
