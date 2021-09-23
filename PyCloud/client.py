@@ -1,4 +1,4 @@
-import socket,sys
+import socket,sys,time,datetime
 from hurry.filesize import size
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
@@ -19,8 +19,79 @@ class client(QMainWindow):
         self.ui.download_button.clicked.connect(self.downloading_ui)
         self.ui.exit_button.clicked.connect(self.close)
         self.show()
-    def download(self):
-        pass
+    def download(self,item):
+        self.file = item.text()
+        self.file = self.file.split("size:")
+        self.file = self.file[0]
+        # send the file that the client wants to download
+        self.s.send(self.file.encode())
+        # receives if it's a directory
+        is_dir = self.s.recv(1024).decode()
+        is_dir = True if is_dir == "0" else False
+        # recieves the size of the file
+        file_size = self.s.recv(1024).decode()
+        file_size_con = size(int(file_size))
+
+        # changes the file name whether its a zip file(folder) or a normal file
+        if is_dir == True:
+            file_1 = self.file + ".zip"
+        else:
+            file_1 = self.file
+        jsonString = bytearray()
+        mbpersecond_var = 0
+        x = 0
+        self.s.send("0".encode())
+        # downloads by 1024
+        start = time.time()
+        start_time_elapsed = time.time()
+        speed = "0"
+        time_left = "NA"
+
+        while True:
+            # Updates all of the ui
+            percentage = round(x/int(file_size)*100)
+            #self.ui.progressBar.setValue(percentage)
+            self.ui.Info_label.setText("  " + size(x) + "/" + file_size_con +"  "+ speed +" Mib/s   ETA: " + time_left)
+            # recieves the packet by 1024
+            packet = self.s.recv(1024)
+            # counts how much data it has recieved
+            mbpersecond_var += 1024
+            x += 1024
+
+            if size(mbpersecond_var) == "1M":
+                mbpersecond_var = 0
+                end = time.time()
+                # stops the timer and resets the variable when it's 1M
+                # gets the speed of the download
+                speed = str(round(1/((end-start)+0.0000000000001), 1))
+                # starts new timer
+                start = time.time()
+                # Gets the estimated time of the download
+                time_ = round((int(file_size)-x) / 1000000 / float(speed))
+                time_left = str(datetime.timedelta(seconds=time_))
+
+            if not packet:
+                break
+
+            jsonString.extend(packet)
+        # writes the file
+        self.ui.Info_label.setText("Writing the file...")
+        with open(file_1, "wb+") as w:
+            w.write(jsonString)
+
+        end_time_elapsed = time.time()
+        # calculates the time it took to download and shows it
+        time_elapsed = str(datetime.timedelta(seconds=round(end_time_elapsed-start_time_elapsed)))
+        self.ui.Info_label.setText(" Time it took to download:" + time_elapsed)
+        if is_dir == True:
+            # extracts the zip file into a folder if the client was downloading folder
+            with zipfile.ZipFile(file_1, 'r') as my_zip:
+                my_zip.extractall(self.file)
+            # removes the zip file
+            os.remove(file_1)
+        # success message
+        QMessageBox.information(self, "Succes", "The file " + self.file +" has succesfully been downloaded.")
+
     def upload(self):
         pass
     def downloading_ui(self):
@@ -31,7 +102,7 @@ class client(QMainWindow):
         self.available_files = files.split(",")
         for i in self.available_files:
             self.ui.filelist.addItem(i)
-        self.ui.progressbar_ui(self)
+        self.ui.filelist.itemClicked.connect(self.download)
     def uploading_ui(self):
         self.ui.upload_button.deleteLater()
         self.ui.download_button.deleteLater()
