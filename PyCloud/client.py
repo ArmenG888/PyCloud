@@ -1,4 +1,4 @@
-import socket,sys,time,datetime
+import socket,sys,time,datetime,os
 from hurry.filesize import size
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
@@ -91,9 +91,6 @@ class client(QMainWindow):
             os.remove(file_1)
         # success message
         QMessageBox.information(self, "Succes", "The file " + self.file +" has succesfully been downloaded.")
-
-    def upload(self):
-        pass
     def downloading_ui(self):
         self.ui.upload_button.deleteLater()
         self.ui.download_button.deleteLater()
@@ -103,6 +100,20 @@ class client(QMainWindow):
         for i in self.available_files:
             self.ui.filelist.addItem(i)
         self.ui.filelist.itemClicked.connect(self.download)
+    def upload(self):
+        os.chdir(self.dir)
+        self.s.recv(1024)
+        # reads the file by 1024 and sends it to the client
+        x = 0
+        with open(self.file,"rb") as r:
+            while True:
+                # reads the data by 1024
+                data = r.read(1024)
+                x += 1024
+                print(x)
+                if not data:break
+                # sends the data
+                self.s.send(data)
     def uploading_ui(self):
         self.ui.upload_button.deleteLater()
         self.ui.download_button.deleteLater()
@@ -111,10 +122,16 @@ class client(QMainWindow):
         fileNames = dialog.selectedFiles()
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             file_full_path = str(dialog.selectedFiles()[0])
-            print(file_full_path)
         file_full_path_list = file_full_path.split("/")
-        file_name = file_full_path_list[-1]
-        self.s.send("u,".encode()+file_name.encode())
+        dir_list = file_full_path_list[0:-2]
+        self.dir = ""
+        for i in dir_list:
+            self.dir += i+"/"
+
+
+        self.file = file_full_path_list[-1]
+        self.s.send("u,".encode()+self.file.encode())
+        self.upload()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = client(ip="192.168.1.2",port=52000)

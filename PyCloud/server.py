@@ -7,12 +7,13 @@ class server:
         s.bind((ip, port))
         s.listen(5)
         self.conn, addr = s.accept()
-        message = self.conn.recv(1024).decode()
-        self.message = message.split(",")
-        if self.message[0] == "u":
-            self.upload()
-        elif self.message[0] == "d":
-            self.prepare_download()
+        while True:
+            message = self.conn.recv(1024).decode()
+            self.message = message.split(",")
+            if self.message[0] == "u":
+                self.upload()
+            elif self.message[0] == "d":
+                self.prepare_download()
     def prepare_download(self):
         files = os.listdir()
         x = ""
@@ -47,9 +48,18 @@ class server:
                 if not data:break
                 # sends the data
                 self.conn.send(data)
-        # removes the zip file after the download is over
-        if self.is_dir == "0": os.remove(file)
-        quit()
     def upload(self):
-        print(self.message[1])
+        self.file = self.message[1]
+        self.conn.send("0".encode())
+        jsonString = bytearray()
+        while True:
+            # recieves the packet by 1024
+            packet = self.conn.recv(1024)
+            if not packet:
+                break
+            jsonString.extend(packet)
+        # writes the file
+        with open(self.file, "wb+") as w:
+            w.write(jsonString)
+
 app = server(ip="192.168.1.2",port=52000)
