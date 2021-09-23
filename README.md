@@ -5,9 +5,12 @@ Cloud Storage of files
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloud.PNG)
 
+<h2> Installation </h2>
 <pre> git clone https://github.com/ArmenG888/PyCloud </pre>
 <pre> cd PyCloud </pre>
 
+<h2> Usage </h2>
+Client can upload or download files from servers, server stores the files that were recieved from the client
 The client can download files or upload files into the server and can download them like google drive
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloudDownload.PNG)
