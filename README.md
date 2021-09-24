@@ -3,7 +3,7 @@ Cloud Storage of files
 
 <h2> WORK IN PROGRESS...</h2>
 
-![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloud.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloud_Screenshot.PNG)
 
 <h2> Installation </h2>
 <pre> git clone https://github.com/ArmenG888/PyCloud </pre>
