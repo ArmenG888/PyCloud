@@ -148,10 +148,11 @@ class client(QMainWindow):
         self.downloader.fielist.itemClicked.connect(self.download)
         self.show()
     def upload(self):
-        os.chdir(self.dir)
         self.s.recv(1024)
         # reads the file by 1024 and sends it to the client
         x = 0
+        os.chdir(self.dir)
+        print(os.listdir())
         with open(self.file,"rb") as r:
             while True:
                 # reads the data by 1024
@@ -161,6 +162,7 @@ class client(QMainWindow):
                 if not data:break
                 # sends the data
                 self.s.send(data)
+        self.s.send("0".encode())
     def uploading_ui(self):
         self.ui.upload_button.deleteLater()
         self.ui.download_button.deleteLater()
@@ -170,7 +172,7 @@ class client(QMainWindow):
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             file_full_path = str(dialog.selectedFiles()[0])
         file_full_path_list = file_full_path.split("/")
-        dir_list = file_full_path_list[0:-2]
+        dir_list = file_full_path_list[0:-1]
         self.dir = ""
         for i in dir_list:
             self.dir += i+"/"
