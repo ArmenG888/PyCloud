@@ -21,7 +21,6 @@ class server:
                 self.register()
 
     def prepare_download(self):
-        print(self.username)
         os.chdir(self.username)
         files = os.listdir()
         x = ""
@@ -58,8 +57,6 @@ class server:
                 self.conn.send(data)
     def upload(self):
         os.chdir(self.username)
-        print(self.username)
-        print(os.listdir())
         self.file = self.message[1]
         self.conn.send("0".encode())
         jsonString = bytearray()
