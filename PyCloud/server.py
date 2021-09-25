@@ -58,16 +58,20 @@ class server:
                 self.conn.send(data)
     def upload(self):
         os.chdir(self.username)
+        print(self.username)
+        print(os.listdir())
         self.file = self.message[1]
         self.conn.send("0".encode())
         jsonString = bytearray()
         while True:
             # recieves the packet by 1024
+            print("x")
             packet = self.conn.recv(1024)
             if not packet:
                 break
             jsonString.extend(packet)
         # writes the file
+        print("y")
         with open(self.file, "wb+") as w:
             w.write(jsonString)
     def register(self):
