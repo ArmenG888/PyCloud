@@ -14,3 +14,7 @@ Client can upload or download files from servers, server stores the files that w
 The client can download files or upload files into the server and can download them like google drive
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloudDownload.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/loginandregisterwindow.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/login.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/register.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/MainWindow.PNG)
