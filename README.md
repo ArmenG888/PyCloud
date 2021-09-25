@@ -16,5 +16,5 @@ The client can download files or upload files into the server and can download t
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloudDownload.PNG)
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/loginandregisterwindow.PNG)
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/login.PNG)
-![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/register.PNG)
+![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/Register.PNG)
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/MainWindow.PNG)
