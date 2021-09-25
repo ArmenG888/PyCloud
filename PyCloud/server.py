@@ -1,4 +1,4 @@
-import socket,os,time
+import socket,os,time,shutil
 from hurry.filesize import size
 class server:
     def __init__(self,ip,port):
@@ -10,16 +10,24 @@ class server:
         while True:
             message = self.conn.recv(1024).decode()
             self.message = message.split(",")
+            print(self.message)
             if self.message[0] == "u":
                 self.upload()
             elif self.message[0] == "d":
                 self.prepare_download()
+            elif self.message[0] == "l":
+                self.login()
+            elif self.message[0] == "r":
+                self.register()
+
     def prepare_download(self):
+        print(self.username)
+        os.chdir(self.username)
         files = os.listdir()
         x = ""
         for i in files:
             x += i +" size: "+size(os.path.getsize(i))+","
-
+        print(x)
         self.conn.send(x.encode())
         # receives the name of the file and sends back the size of it
         file = self.conn.recv(1024).decode()
@@ -49,6 +57,7 @@ class server:
                 # sends the data
                 self.conn.send(data)
     def upload(self):
+        os.chdir(self.username)
         self.file = self.message[1]
         self.conn.send("0".encode())
         jsonString = bytearray()
@@ -61,5 +70,25 @@ class server:
         # writes the file
         with open(self.file, "wb+") as w:
             w.write(jsonString)
-
+    def register(self):
+        with open("database.csv", "a") as w:
+            w.write(self.message[1] +","+self.message[2]+","+self.message[3]+"\n")
+        w.close()
+        os.mkdir(self.message[1])
+    def login(self):
+        with open("database.csv", "r") as r:
+            r = r.read()
+            r = r.split("\n")
+        login = False
+        for i in r:
+            i = i.split(",")
+            if i[0] == self.message[1] and i[1] == self.message[2]:
+                login = True
+            else:
+                continue
+        self.username = self.message[1]
+        if login == True:
+            self.conn.send("1".encode())
+        else:
+            self.conn.send("0".encode())
 app = server(ip="127.0.0.1",port=52000)
