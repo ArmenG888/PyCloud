@@ -1,5 +1,5 @@
 # PyCloud
-Cloud Storage of file
+Cloud Storage of files
 
 <h2> WORK IN PROGRESS...</h2>
 
