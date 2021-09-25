@@ -5,12 +5,53 @@ from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTi
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 from ui_PyCloud import Ui_Main
-
+from ui_PyCloudDownloader import Ui_Main as downloader
+from ui_PyCloudLoginRegsiterWindow import Ui_Main as lrw
+from ui_PyCloudLogin import Ui_Main as login_win
+from ui_PyCloudRegister import Ui_Main as register_win
 class client(QMainWindow):
     def __init__(self,ip,port):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((ip, port))
         QMainWindow.__init__(self)
+        self.lrw = lrw()
+        self.lrw.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.lrw.pushButton.clicked.connect(self.close)
+        self.lrw.login_button.clicked.connect(self.login_ui)
+        self.lrw.register_button.clicked.connect(self.register_ui)
+        self.show()
+    def register_ui(self):
+        self.register_win = register_win()
+        self.register_win.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.register_win.register_button.clicked.connect(self.register)
+        self.register_win.pushButton.clicked.connect(self.close)
+        self.show()
+    def register(self):
+        username = self.register_win.username_entry.text()
+        email = self.register_win.email_entry.text()
+        password = self.register_win.password_entry.text()
+        self.s.send("r,".encode()+username.encode()+",".encode()+password.encode()+",".encode()+email.encode())
+        #self.main_window()
+    def login_ui(self):
+        self.login_win = login_win()
+        self.login_win.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.login_win.login_button.clicked.connect(self.login)
+        self.login_win.pushButton.clicked.connect(self.close)
+        self.show()
+    def login(self):
+        username = self.login_win.username_entry.text()
+        password = self.login_win.password_entry.text()
+        self.s.send("l,".encode()+username.encode()+",".encode()+password.encode())
+        login_bool = self.s.recv(1024).decode()
+        if login_bool == "1":
+            self.main_window()
+    def main_window(self):
         self.ui = Ui_Main()
         self.ui.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -50,8 +91,9 @@ class client(QMainWindow):
         while True:
             # Updates all of the ui
             percentage = round(x/int(file_size)*100)
+            self.downloader.progressBar.setValue(percentage)
             #self.ui.progressBar.setValue(percentage)
-            self.ui.Info_label.setText("  " + size(x) + "/" + file_size_con +"  "+ speed +" Mib/s   ETA: " + time_left)
+            self.downloader.Info_label.setText("  " + size(x) + "/" + file_size_con +"  "+ speed +" Mib/s   ETA: " + time_left)
             # recieves the packet by 1024
             packet = self.s.recv(1024)
             # counts how much data it has recieved
@@ -75,7 +117,7 @@ class client(QMainWindow):
 
             jsonString.extend(packet)
         # writes the file
-        self.ui.Info_label.setText("Writing the file...")
+        self.downloader.Info_label.setText("Writing the file...")
         with open(file_1, "wb+") as w:
             w.write(jsonString)
 
@@ -91,15 +133,20 @@ class client(QMainWindow):
             os.remove(file_1)
         # success message
         QMessageBox.information(self, "Succes", "The file " + self.file +" has succesfully been downloaded.")
+    # sets up ui for downloading
     def downloading_ui(self):
-        self.ui.upload_button.deleteLater()
-        self.ui.download_button.deleteLater()
-        self.s.send("d,".encode())
+        self.downloader = downloader()
+        self.downloader.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.downloader.exit_button.clicked.connect(self.close)
+        self.s.send("d,".encode()+"d".encode())
         files = self.s.recv(1024).decode()
         self.available_files = files.split(",")
         for i in self.available_files:
-            self.ui.filelist.addItem(i)
-        self.ui.filelist.itemClicked.connect(self.download)
+            self.downloader.fielist.addItem(i)
+        self.downloader.fielist.itemClicked.connect(self.download)
+        self.show()
     def upload(self):
         os.chdir(self.dir)
         self.s.recv(1024)
