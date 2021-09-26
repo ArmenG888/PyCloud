@@ -1,7 +1,7 @@
 # PyCloud
 Cloud Storage of files
 
-<h2> WORK IN PROGRESS...</h2>
+Every account(user) has its directory that they can store files in and they can download them. A user can only access his directory by logging in. The directory is stored inside the servers computer.
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloud.PNG)
 
