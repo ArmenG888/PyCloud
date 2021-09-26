@@ -7,10 +7,9 @@ class server:
         s.bind((ip, port))
         s.listen(5)
         self.conn, addr = s.accept()
-        while True:
+        for i in range(2):
             message = self.conn.recv(1024).decode()
             self.message = message.split(",")
-            print(self.message)
             if self.message[0] == "u":
                 self.upload()
             elif self.message[0] == "d":
@@ -58,17 +57,14 @@ class server:
     def upload(self):
         os.chdir(self.username)
         self.file = self.message[1]
-        self.conn.send("0".encode())
         jsonString = bytearray()
         while True:
             # recieves the packet by 1024
-            print("x")
             packet = self.conn.recv(1024)
             if not packet:
                 break
             jsonString.extend(packet)
         # writes the file
-        print("y")
         with open(self.file, "wb+") as w:
             w.write(jsonString)
     def register(self):

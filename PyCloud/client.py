@@ -124,7 +124,7 @@ class client(QMainWindow):
         end_time_elapsed = time.time()
         # calculates the time it took to download and shows it
         time_elapsed = str(datetime.timedelta(seconds=round(end_time_elapsed-start_time_elapsed)))
-        self.ui.Info_label.setText(" Time it took to download:" + time_elapsed)
+        self.downloader.Info_label.setText(" Time it took to download:" + time_elapsed)
         if is_dir == True:
             # extracts the zip file into a folder if the client was downloading folder
             with zipfile.ZipFile(file_1, 'r') as my_zip:
@@ -148,21 +148,19 @@ class client(QMainWindow):
         self.downloader.fielist.itemClicked.connect(self.download)
         self.show()
     def upload(self):
-        self.s.recv(1024)
         # reads the file by 1024 and sends it to the client
         x = 0
         os.chdir(self.dir)
-        print(os.listdir())
         with open(self.file,"rb") as r:
             while True:
                 # reads the data by 1024
                 data = r.read(1024)
                 x += 1024
                 print(x)
+                self.s.send(data)
                 if not data:break
                 # sends the data
-                self.s.send(data)
-        self.s.send("0".encode())
+        quit()
     def uploading_ui(self):
         self.ui.upload_button.deleteLater()
         self.ui.download_button.deleteLater()
