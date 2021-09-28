@@ -18,7 +18,7 @@ The client can download files or upload files into the server and can download t
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/PyCloudDownload.PNG)
 
-<h2> Login and register Window </h2>
+<h2> Login and register button Window </h2>
 
 ![Image of the client](https://raw.githubusercontent.com/ArmenG888/PyCloud/main/screenshots/loginandregisterwindow.PNG)
 
