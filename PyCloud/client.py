@@ -9,6 +9,7 @@ from ui_PyCloudDownloader import Ui_Main as downloader
 from ui_PyCloudLoginRegsiterWindow import Ui_Main as lrw
 from ui_PyCloudLogin import Ui_Main as login_win
 from ui_PyCloudRegister import Ui_Main as register_win
+from ui_PyCloudUpload import Ui_Main as upload_win
 class client(QMainWindow):
     def __init__(self,ip,port):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -135,6 +136,7 @@ class client(QMainWindow):
         QMessageBox.information(self, "Succes", "The file " + self.file +" has succesfully been downloaded.")
     # sets up ui for downloading
     def downloading_ui(self):
+
         self.downloader = downloader()
         self.downloader.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -162,8 +164,13 @@ class client(QMainWindow):
                 # sends the data
         quit()
     def uploading_ui(self):
-        self.ui.upload_button.deleteLater()
-        self.ui.download_button.deleteLater()
+        self.upload_win = upload_win()
+        self.upload_win.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.upload_win.pushButton.clicked.connect(self.close)
+        self.upload_win.progressBar.setFormat("Loading")
+        self.show()
         dialog = QtWidgets.QFileDialog(self)
         dialog.setFileMode(QFileDialog.AnyFile)
         fileNames = dialog.selectedFiles()
