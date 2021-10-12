@@ -151,41 +151,59 @@ class client(QMainWindow):
         self.show()
     def upload(self):
         # reads the file by 1024 and sends it to the client
-        x = 0
-        os.chdir(self.dir)
-        with open(self.file,"rb") as r:
-            while True:
-                # reads the data by 1024
-                data = r.read(1024)
-                x += 1024
-                print(x)
-                self.s.send(data)
-                if not data:break
-                # sends the data
+        self.file_list_str = ""
+        for i in self.file_list:
+            if self.file_list_str != "":
+                self.file_list_str += "," + i
+            else:
+                self.file_list_str += i
+        self.s.send("u".encode())
+        self.s.send(str(len(self.file_dir)).encode())
+        print(len(self.file_dir))
+        self.s.recv(1024)
+        self.s.send(self.file_list_str.encode())
+        for i in range(len(self.file_list)):
+            self.upload_win.progressBar.setValue(i/len(self.file_list))
+            x = 0
+            print(self.file_list[i])
+            print(self.file_dir[i])
+            with open(self.file_dir[i],"rb") as r:
+                while True:
+                    # reads the data by 1024
+                    data = r.read(1024)
+                    x += 1024
+                    self.s.send(data)
+                    if not data:break
+                    # sends the data
+            self.s.recv(1024)
+            print("h")
         quit()
     def uploading_ui(self):
         self.upload_win = upload_win()
         self.upload_win.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.upload_win.pushButton.clicked.connect(self.close)
-        self.upload_win.progressBar.setFormat("Loading")
+        self.upload_win.exit_button.clicked.connect(self.close)
+        self.upload_win.file_add.clicked.connect(self.add_files)
+        self.upload_win.upload.clicked.connect(self.upload)
+        self.file_dir = []
+        self.file_list = []
+        self.file_names = ""
         self.show()
+    def add_files(self):
         dialog = QtWidgets.QFileDialog(self)
         dialog.setFileMode(QFileDialog.AnyFile)
         fileNames = dialog.selectedFiles()
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             file_full_path = str(dialog.selectedFiles()[0])
         file_full_path_list = file_full_path.split("/")
-        dir_list = file_full_path_list[0:-1]
-        self.dir = ""
-        for i in dir_list:
-            self.dir += i+"/"
 
 
         self.file = file_full_path_list[-1]
-        self.s.send("u,".encode()+self.file.encode())
-        self.upload()
+        self.file_list.append(self.file)
+
+        self.file_dir.append(file_full_path)
+        self.upload_win.filelist.addItem(self.file)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = client(ip="127.0.0.1",port=52000)

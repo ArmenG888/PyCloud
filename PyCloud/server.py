@@ -56,17 +56,22 @@ class server:
                 self.conn.send(data)
     def upload(self):
         os.chdir(self.username)
-        self.file = self.message[1]
-        jsonString = bytearray()
-        while True:
-            # recieves the packet by 1024
-            packet = self.conn.recv(1024)
-            if not packet:
-                break
-            jsonString.extend(packet)
-        # writes the file
-        with open(self.file, "wb+") as w:
-            w.write(jsonString)
+        self.list_num = self.conn.recv(1024).decode()
+        self.conn.send("0".encode())
+        file_list = self.conn.recv(1024).decode()
+        file_list = file_list.split(",")
+        print(file_list)
+        for i in range(lena(file_list)):
+            jsonString = bytearray()
+            while True:
+                # recieves the packet by 1024
+                packet = self.conn.recv(1024)
+                if not packet:
+                    break
+                jsonString.extend(packet)
+            # writes the file
+            with open(file_list[i], "wb+") as w:
+                w.write(jsonString)
     def register(self):
         with open("database.csv", "a") as w:
             w.write(self.message[1] +","+self.message[2]+","+self.message[3]+"\n")
