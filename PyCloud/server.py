@@ -1,10 +1,11 @@
-import socket,os,time,shutil
+import socket,os,time,shutil,sys
 from hurry.filesize import size
 class server:
     def __init__(self,ip,port):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((ip, port))
+        print("Server is running on Ip:"+str(ip)+" port:"+str(port))
         s.listen(5)
         self.conn, addr = s.accept()
         for i in range(2):
@@ -93,4 +94,25 @@ class server:
             self.conn.send("1".encode())
         else:
             self.conn.send("0".encode())
-app = server(ip="127.0.0.1",port=52000)
+def main(argv):
+    if argv[0] == "-h":
+        print("-startserver [ip](default 127.0.0.1) [port](default 52000), -backup (backups all the data of the users into one zip file)")
+    elif argv[0] == "-backup":
+        directories_in_curdir = list(filter(os.path.isdir, os.listdir(os.curdir)))
+        os.mkdir("backup")
+        os.chdir("backup")
+        x = 0
+        for i in directories_in_curdir:
+            shutil.make_archive(i, 'zip',i)
+            x += 1
+            print(str(x)+"/"+str(len(directories_in_curdir)))
+    elif argv[0] == "-startserver":
+        if len(argv) == 2:
+            app = server(ip=argv[1],port=argv[1])
+        elif len(argv) == 1:
+            app = server(ip=argv[1],port=52000)
+        else:
+            print("The server is goint to run on the default test ip")
+            app = server(ip=argv[1],port=52000)
+if __name__ == "__main__":
+   main(sys.argv[1:])
