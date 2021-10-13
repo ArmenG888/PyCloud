@@ -99,8 +99,6 @@ def main(argv):
         print("-startserver [ip](default 127.0.0.1) [port](default 52000), -backup (backups all the data of the users into one zip file)")
     elif argv[0] == "-backup":
         directories_in_curdir = list(filter(os.path.isdir, os.listdir(os.curdir)))
-        os.mkdir("backup")
-        os.chdir("backup")
         x = 0
         for i in directories_in_curdir:
             shutil.make_archive(i, 'zip',i)
