@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyCloudYWwlSH.ui'
+## Form generated from reading UI file 'PyCloudsemOiX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -56,21 +56,21 @@ class Ui_Main(object):
         self.pushButton.setStyleSheet(u"")
         self.pushButton.setAutoDefault(False)
         self.pushButton.setFlat(True)
-        self.login_button = QPushButton(self.drop)
-        self.login_button.setObjectName(u"login_button")
-        self.login_button.setGeometry(QRect(230, 140, 161, 41))
+        self.download_button = QPushButton(self.drop)
+        self.download_button.setObjectName(u"download_button")
+        self.download_button.setGeometry(QRect(230, 140, 161, 41))
         font2 = QFont()
         font2.setFamily(u"Segoe UI")
         font2.setPointSize(17)
-        self.login_button.setFont(font2)
-        self.login_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 25px;")
-        self.login_button.setFlat(False)
-        self.register_button = QPushButton(self.drop)
-        self.register_button.setObjectName(u"register_button")
-        self.register_button.setGeometry(QRect(230, 200, 161, 41))
-        self.register_button.setFont(font2)
-        self.register_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 25px;")
-        self.register_button.setFlat(False)
+        self.download_button.setFont(font2)
+        self.download_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 5px;")
+        self.download_button.setFlat(False)
+        self.upload_button = QPushButton(self.drop)
+        self.upload_button.setObjectName(u"upload_button")
+        self.upload_button.setGeometry(QRect(230, 200, 161, 41))
+        self.upload_button.setFont(font2)
+        self.upload_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 5px;")
+        self.upload_button.setFlat(False)
 
         self.verticalLayout.addWidget(self.drop)
 
@@ -88,7 +88,7 @@ class Ui_Main(object):
         Main.setWindowTitle(QCoreApplication.translate("Main", u"MainWindow", None))
         self.Downloader.setText(QCoreApplication.translate("Main", u"<html><head/><body><p>PyCloud</p><p><br/></p></body></html>", None))
         self.pushButton.setText(QCoreApplication.translate("Main", u"\u2715", None))
-        self.login_button.setText(QCoreApplication.translate("Main", u"Login", None))
-        self.register_button.setText(QCoreApplication.translate("Main", u"Register", None))
+        self.download_button.setText(QCoreApplication.translate("Main", u"Download", None))
+        self.upload_button.setText(QCoreApplication.translate("Main", u"Upload", None))
     # retranslateUi
 
