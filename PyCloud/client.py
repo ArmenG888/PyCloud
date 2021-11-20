@@ -197,13 +197,6 @@ class client(QMainWindow):
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             file_full_path = str(dialog.selectedFiles()[0])
         file_full_path_list = file_full_path.split("/")
-
-
-        self.file = file_full_path_list[-1]
-        self.file_list.append(self.file)
-
-        self.file_dir.append(file_full_path)
-        self.upload_win.filelist.addItem(self.file)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = client(ip="127.0.0.1",port=52000)
