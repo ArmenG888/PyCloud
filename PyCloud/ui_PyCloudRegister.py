@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyCloudRegistercViOSn.ui'
+## Form generated from reading UI file 'PyCloudRegisterXLSfVW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -70,10 +70,12 @@ class Ui_Main(object):
         font3.setFamily(u"Segoe UI")
         font3.setPointSize(12)
         self.username_entry.setFont(font3)
+        self.username_entry.setStyleSheet(u"border-radius: 5px;")
         self.password_entry = QLineEdit(self.drop)
         self.password_entry.setObjectName(u"password_entry")
         self.password_entry.setGeometry(QRect(293, 220, 121, 31))
         self.password_entry.setFont(font3)
+        self.password_entry.setStyleSheet(u"border-radius: 5px;")
         self.password_label = QLabel(self.drop)
         self.password_label.setObjectName(u"password_label")
         self.password_label.setGeometry(QRect(190, 215, 101, 31))
@@ -85,12 +87,13 @@ class Ui_Main(object):
         font4.setPointSize(12)
         self.register_button.setFont(font4)
         self.register_button.setAutoFillBackground(False)
-        self.register_button.setStyleSheet(u"background-color:rgb(255,255,255);")
+        self.register_button.setStyleSheet(u"background-color:rgb(255,255,255);border-radius: 5px;")
         self.register_button.setFlat(False)
         self.email_entry = QLineEdit(self.drop)
         self.email_entry.setObjectName(u"email_entry")
         self.email_entry.setGeometry(QRect(293, 175, 121, 31))
         self.email_entry.setFont(font3)
+        self.email_entry.setStyleSheet(u"border-radius: 5px;")
         self.email_label = QLabel(self.drop)
         self.email_label.setObjectName(u"email_label")
         self.email_label.setGeometry(QRect(230, 170, 61, 31))

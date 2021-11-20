@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyCloudLogineRidpp.ui'
+## Form generated from reading UI file 'PyCloudLoginRegsiterAICNIp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -56,39 +56,21 @@ class Ui_Main(object):
         self.pushButton.setStyleSheet(u"")
         self.pushButton.setAutoDefault(False)
         self.pushButton.setFlat(True)
-        self.username_label = QLabel(self.drop)
-        self.username_label.setObjectName(u"username_label")
-        self.username_label.setGeometry(QRect(178, 130, 111, 21))
+        self.login_button = QPushButton(self.drop)
+        self.login_button.setObjectName(u"login_button")
+        self.login_button.setGeometry(QRect(230, 140, 161, 41))
         font2 = QFont()
         font2.setFamily(u"Segoe UI")
         font2.setPointSize(17)
-        self.username_label.setFont(font2)
-        self.username_entry = QLineEdit(self.drop)
-        self.username_entry.setObjectName(u"username_entry")
-        self.username_entry.setGeometry(QRect(293, 127, 113, 31))
-        font3 = QFont()
-        font3.setFamily(u"Segoe UI")
-        font3.setPointSize(12)
-        self.username_entry.setFont(font3)
-        self.username_entry.setStyleSheet(u"border-radius: 5px;")
-        self.password_entry = QLineEdit(self.drop)
-        self.password_entry.setObjectName(u"password_entry")
-        self.password_entry.setGeometry(QRect(293, 187, 113, 31))
-        self.password_entry.setFont(font3)
-        self.password_entry.setStyleSheet(u"border-radius: 5px;")
-        self.password_label = QLabel(self.drop)
-        self.password_label.setObjectName(u"password_label")
-        self.password_label.setGeometry(QRect(190, 190, 101, 21))
-        self.password_label.setFont(font2)
-        self.login_button = QPushButton(self.drop)
-        self.login_button.setObjectName(u"login_button")
-        self.login_button.setGeometry(QRect(290, 250, 91, 31))
-        font4 = QFont()
-        font4.setPointSize(12)
-        self.login_button.setFont(font4)
-        self.login_button.setAutoFillBackground(False)
-        self.login_button.setStyleSheet(u"border-radius: 5px;background-color:rgb(255,255,255);")
-        self.login_button.setFlat(True)
+        self.login_button.setFont(font2)
+        self.login_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 5px;")
+        self.login_button.setFlat(False)
+        self.register_button = QPushButton(self.drop)
+        self.register_button.setObjectName(u"register_button")
+        self.register_button.setGeometry(QRect(230, 200, 161, 41))
+        self.register_button.setFont(font2)
+        self.register_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 5px;")
+        self.register_button.setFlat(False)
 
         self.verticalLayout.addWidget(self.drop)
 
@@ -106,10 +88,7 @@ class Ui_Main(object):
         Main.setWindowTitle(QCoreApplication.translate("Main", u"MainWindow", None))
         self.Downloader.setText(QCoreApplication.translate("Main", u"<html><head/><body><p>PyCloud</p><p><br/></p></body></html>", None))
         self.pushButton.setText(QCoreApplication.translate("Main", u"\u2715", None))
-        self.username_label.setText(QCoreApplication.translate("Main", u"Username", None))
-        self.username_entry.setText("")
-        self.password_entry.setText("")
-        self.password_label.setText(QCoreApplication.translate("Main", u"Password", None))
         self.login_button.setText(QCoreApplication.translate("Main", u"Login", None))
+        self.register_button.setText(QCoreApplication.translate("Main", u"Register", None))
     # retranslateUi
 
