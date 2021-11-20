@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyCloudxrynUc.ui'
+## Form generated from reading UI file 'PyCloudYWwlSH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -34,58 +34,43 @@ class Ui_Main(object):
 "}")
         self.drop.setFrameShape(QFrame.StyledPanel)
         self.drop.setFrameShadow(QFrame.Raised)
-        self.filelist = QListWidget(self.drop)
-        self.filelist.setObjectName(u"fielist")
-        self.filelist.setGeometry(QRect(20, 81, 571, 181))
-        self.filelist.setStyleSheet(u"hover{\n"
-"color: rgb(98,114,250);\n"
-"}")
         self.Downloader = QLabel(self.drop)
         self.Downloader.setObjectName(u"Downloader")
         self.Downloader.setGeometry(QRect(0, 0, 611, 101))
-        self.Info_label = QLabel(self.drop)
-        self.Info_label.setObjectName(u"Info_label")
-        self.Info_label.setGeometry(QRect(-10, 300, 631, 31))
-        font1 = QFont()
-        font1.setFamily(u"Segoe UI")
-        font1.setPointSize(14)
-        self.Info_label.setFont(font1)
-        self.Info_label.setStyleSheet(u"color: rgb(98,114,250);")
-        self.Info_label.setAlignment(Qt.AlignCenter)
         font = QFont()
         font.setFamily(u"Segoe UI")
         font.setPointSize(40)
         self.Downloader.setFont(font)
         self.Downloader.setStyleSheet(u"color: rgb(254,121,199);")
         self.Downloader.setAlignment(Qt.AlignCenter)
-        self.exit_button = QPushButton(self.drop)
-        self.exit_button.setObjectName(u"exit_button")
-        self.exit_button.setGeometry(QRect(590, 0, 31, 31))
+        self.pushButton = QPushButton(self.drop)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(590, 0, 31, 31))
         font1 = QFont()
         font1.setFamily(u"Segoe UI")
         font1.setPointSize(18)
         font1.setKerning(True)
-        self.exit_button.setFont(font1)
-        self.exit_button.setAcceptDrops(False)
-        self.exit_button.setAutoFillBackground(False)
-        self.exit_button.setStyleSheet(u"")
-        self.exit_button.setAutoDefault(False)
-        self.exit_button.setFlat(True)
-        self.upload_button = QPushButton(self.drop)
-        self.upload_button.setObjectName(u"upload_button")
-        self.upload_button.setGeometry(QRect(230, 140, 161, 41))
+        self.pushButton.setFont(font1)
+        self.pushButton.setAcceptDrops(False)
+        self.pushButton.setAutoFillBackground(False)
+        self.pushButton.setStyleSheet(u"")
+        self.pushButton.setAutoDefault(False)
+        self.pushButton.setFlat(True)
+        self.login_button = QPushButton(self.drop)
+        self.login_button.setObjectName(u"login_button")
+        self.login_button.setGeometry(QRect(230, 140, 161, 41))
         font2 = QFont()
         font2.setFamily(u"Segoe UI")
         font2.setPointSize(17)
-        self.upload_button.setFont(font2)
-        self.upload_button.setStyleSheet(u"background-color: rgb(157, 0, 255); color:rgb(255,255,255);")
-        self.upload_button.setFlat(False)
-        self.download_button = QPushButton(self.drop)
-        self.download_button.setObjectName(u"download_button")
-        self.download_button.setGeometry(QRect(230, 200, 161, 41))
-        self.download_button.setFont(font2)
-        self.download_button.setStyleSheet(u"background-color: rgb(157, 0, 255); color:rgb(255,255,255);")
-        self.download_button.setFlat(False)
+        self.login_button.setFont(font2)
+        self.login_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 25px;")
+        self.login_button.setFlat(False)
+        self.register_button = QPushButton(self.drop)
+        self.register_button.setObjectName(u"register_button")
+        self.register_button.setGeometry(QRect(230, 200, 161, 41))
+        self.register_button.setFont(font2)
+        self.register_button.setStyleSheet(u"background-color: rgb(157, 0, 255);color:rgb(255,255,255);border-radius: 25px;")
+        self.register_button.setFlat(False)
 
         self.verticalLayout.addWidget(self.drop)
 
@@ -93,7 +78,7 @@ class Ui_Main(object):
 
         self.retranslateUi(Main)
 
-        self.exit_button.setDefault(False)
+        self.pushButton.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(Main)
@@ -102,7 +87,8 @@ class Ui_Main(object):
     def retranslateUi(self, Main):
         Main.setWindowTitle(QCoreApplication.translate("Main", u"MainWindow", None))
         self.Downloader.setText(QCoreApplication.translate("Main", u"<html><head/><body><p>PyCloud</p><p><br/></p></body></html>", None))
-        self.exit_button.setText(QCoreApplication.translate("Main", u"\u2715", None))
-        self.upload_button.setText(QCoreApplication.translate("Main", u"Upload", None))
-        self.download_button.setText(QCoreApplication.translate("Main", u"Download", None))
+        self.pushButton.setText(QCoreApplication.translate("Main", u"\u2715", None))
+        self.login_button.setText(QCoreApplication.translate("Main", u"Login", None))
+        self.register_button.setText(QCoreApplication.translate("Main", u"Register", None))
     # retranslateUi
+
